@@ -2,8 +2,10 @@
 Description=Fake Hardware Clock
 Documentation=man:fake-hwclock(8)
 DefaultDependencies=no
+After=systemd-remount-fs.service systemd-sysusers.service
+Before=time-set.target sysinit.target shutdown.target
 Conflicts=shutdown.target
-Wants=fake-hwclock.timer
+Wants=fake-hwclock.timer time-set.target
 
 [Service]
 Type=simple
@@ -11,4 +13,4 @@ ExecStart=/usr/bin/fake-hwclock
 ExecStop=/usr/bin/fake-hwclock
 
 [Install]
-WantedBy=basic.target
+WantedBy=sysinit.target
